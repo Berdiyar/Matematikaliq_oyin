@@ -14,10 +14,13 @@ class Oyin_funksiyasi : AppCompatActivity() {
     private var durisjuwap2: Float = 0F
     private var aylanis: Int = 0
     private val max_soraw_sani = 15
+    private var a: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_oyin_funksiyasi)
+
+        a = intent.getIntExtra("a", 0)
 
         generatsiylaw()
 
@@ -46,30 +49,42 @@ class Oyin_funksiyasi : AppCompatActivity() {
 
     fun generatsiylaw(){
 
-        val bir = Random().nextInt(100)
-        val eki = Random().nextInt(100)
-        val belgi = Random().nextInt(4)
+        var bir: Int = 0
+        var b: String
+        var s: Int = 0
+        var san: Int = 0
 
+        s = ixtiyariy_san(bir)
+        durisjuwap2 += s.toFloat()
+        b = "$s"
+
+        while(san < a){
+
+        val belgi = Random().nextInt(4)
+            s = ixtiyariy_san(bir)
         when(belgi){
-            0->soraw.text = "$bir + $eki"
-            1->soraw.text = "$bir - $eki"
-            2->soraw.text = "$bir * $eki"
-            else->soraw.text = "$bir / $eki"
+            0->b = "$b + $s"
+            1->b = "$b - $s"
+            2->b = "$b * $s"
+            else->b = "$b / $s"
         }
         when(belgi){
             0->{
-                durisjuwap2 = bir.toFloat() + eki.toFloat()
+                durisjuwap2 += s.toFloat()
             }
             1->{
-                durisjuwap2 = bir.toFloat() - eki.toFloat()
+                durisjuwap2 -= s.toFloat()
             }
             2->{
-                durisjuwap2 = bir.toFloat() * eki.toFloat()
+                durisjuwap2 *= s.toFloat()
             }
             else->{
-                durisjuwap2 = bir.toFloat() / eki.toFloat()
+                durisjuwap2 /= s.toFloat()
             }
         }
+            san+=1
+        }
+        soraw.text = b
         qate_juwap_generatsiyasi(juwap_1)
         qate_juwap_generatsiyasi(juwap_2)
         qate_juwap_generatsiyasi(juwap_3)
@@ -93,6 +108,11 @@ class Oyin_funksiyasi : AppCompatActivity() {
 
 
 
+    }
+
+    private fun ixtiyariy_san(san: Int): Int {
+        var s = Random().nextInt(100)
+        return s
     }
 
     private fun qate_juwap_generatsiyasi(button: Button){
